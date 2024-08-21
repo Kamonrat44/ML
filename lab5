@@ -1,0 +1,40 @@
+import accuracy
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_wine
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+
+from sklearn.ensemble import RandomForestClassifier
+data = load_wine()
+X = data.data
+y = data.target
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+rf = DecisionTreeClassifier(max_depth = 1)
+rf.fit(X_train , y_train)
+y_pred = rf.predict(X_test)
+print("DecisionTree")
+print("accuracy:")
+print(accuracy_score(y_test , y_pred))
+print("f1_score:")
+print(f1_score(y_test , y_pred ,average='macro'))
+print("------------------------------------------------")
+#ไม่ใส่จำนวนตั้นไม้
+rf = RandomForestClassifier(max_depth=1)
+rf.fit(X_train , y_train)
+y_pred = rf.predict(X_test)
+print("RandomForest")
+print("accuracy:")
+print(accuracy_score(y_test , y_pred))
+print("f1_score:")
+print(f1_score(y_test , y_pred ,average='macro'))
+print("------------------------------------------------")
+#n_estimators คือจำนวนต้นไม้
+rf = RandomForestClassifier(n_estimators=1000,max_depth=1 )
+rf.fit(X_train , y_train)
+y_pred = rf.predict(X_test)
+print("accuracy:")
+print(accuracy_score(y_test , y_pred))
+print("f1_score:")
+print(f1_score(y_test , y_pred ,average='macro'))
