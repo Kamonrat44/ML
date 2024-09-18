@@ -1,6 +1,16 @@
 import numpy as np
 from scipy.spatial.distance import euclidean
+from sklearn import datasets
+import pandas as pd
+from sklearn.cluster import KMeans
 
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+model = KMeans(n_clusters=3).fit(X)
+for i in range(len(y)):
+    print(model.labels_[i], "\t",y[i])
 # ฟังก์ชัน kmean
 def kmean(a1_list, a2_list, centroid_1, centroid_2):
     if len(a1_list) == len(a2_list) and len(centroid_1) == len(centroid_2):
